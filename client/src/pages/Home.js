@@ -9,16 +9,19 @@ function Home() {
 
     const [books, setBooks] = useState([]);
     const [q, setQ] = useState("");
+    // const [message, setMessage] = useState("Search for books to begin!");
 
     const search = () => {
         API.getBooks(q)
             .then(res => {
                 console.log(res.data)
-                setBooks({
-                    books: res.data
-                })
+                setBooks([res.data])
             })
-            .catch(err => console.log(err));
+            .catch(
+                err => console.log(err),
+                // setMessage("No book matches your search!"),
+                setBooks([])
+            );
     }
 
     const handleInputChange = (e) => {
@@ -51,9 +54,27 @@ function Home() {
                 </InputGroup>
             </div>
             <div>
-                <Card>
-                    <button>Save</button>
-                </Card>
+                {books.length ? (
+                    <div>
+                        {books.map((book, i) => (
+                            <div key={i}>
+                            {book.items.map((result, i) =>
+                                <Card 
+                                    key={i}
+                                    title={result.volumeInfo.title}
+                                    authors={result.volumeInfo.authors.join(", ")}
+                                    link={result.volumeInfo.infoLink}
+                                    description={result.volumeInfo.description}
+                                    image={result.volumeInfo.imageLinks.thumbnail}
+                                >
+                                </Card>
+                            )}
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <h3>Search for books to begin!</h3>
+                )}
             </div>
         </div>
     );

@@ -1,13 +1,17 @@
 import React from "react";
 import "./style.css";
 
-function Card({children}) {
+function Card({ title, authors, link, description, image }) {
     return (
         <div>
             <div className="card">
-                <h4>Title</h4>
-                <p>Book</p>
-                {children}
+                <h4>{title}</h4>
+                <p>{authors}</p>
+                <a href={link} target="_blank" rel="noreferrer">
+                    View
+                </a>
+                <p>{description}</p>
+                <img alt={title} src={image} width="100"></img>
             </div>
         </div>
     );
