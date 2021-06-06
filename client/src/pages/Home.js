@@ -7,24 +7,25 @@ import API from "../utils/API";
 
 function Home() {
 
-    const [books, setBooks] = useState([]);
+    const [books, setBooks] = useState({});
     const [q, setQ] = useState("");
     // const [message, setMessage] = useState("Search for books to begin!");
 
     const search = () => {
         API.getBooks(q)
             .then(res => {
-                console.log(res.data)
-                setBooks([res.data])
+                console.log(res.data.items)
+                setBooks(res.data.items)
             })
             .catch(
                 err => console.log(err),
                 // setMessage("No book matches your search!"),
-                setBooks([])
+                setBooks({})
             );
     }
 
     const handleInputChange = (e) => {
+        e.preventDefault();
         setQ(e.target.value);
     }
 
@@ -33,19 +34,20 @@ function Home() {
         search();
     }
 
-    const handleBookSave = (e) => {
-        e.preventDefault();
-        
+    const handleBookSave = (id) => {
+        const book = books.find(book => (
+            book.id === id
+        ));
+
         API.saveBook({
-            title: "title",
-            authors: "authors",
-            link: "link",
-            image: "image",
-            description: "description"
+            googleId: book.id,
+            title: book.volumeInfo.title,
+            authors: book.volumeInfo.authors,
+            link: book.volumeInfo.infoLink,
+            image: book.volumeInfo.imageLinks.thumbnail,
+            description: book.volumeInfo.description
         })
-            .then(
-                console.log("clicked")
-            )
+            .catch(err => console.log(err))
     }
 
     return (
@@ -71,26 +73,22 @@ function Home() {
             <div>
                 {books.length ? (
                     <div>
-                        {books.map((book, i) => (
-                            <div key={i}>
-                            {book.items.map((result, i) =>
-                                <Card 
-                                    key={i}
-                                    title={result.volumeInfo.title}
-                                    authors={result.volumeInfo.authors.join(", ")}
-                                    link={result.volumeInfo.infoLink}
-                                    description={result.volumeInfo.description}
-                                    image={result.volumeInfo.imageLinks.thumbnail}
-                                    Button={() => (
-                                        <button
-                                            onClick={handleBookSave}
-                                        >
-                                          Save
-                                        </button>
-                                      )}
-                                />
-                            )}
-                            </div>
+                        {books.map(result => (
+                            <Card
+                                key={result.id}
+                                title={result.volumeInfo.title}
+                                authors={result.volumeInfo.authors.join(", ")}
+                                link={result.volumeInfo.infoLink}
+                                description={result.volumeInfo.description}
+                                image={result.volumeInfo.imageLinks.thumbnail}
+                                Button={() => (
+                                    <button
+                                        onClick={() => handleBookSave(result.id)}
+                                    >
+                                        Save
+                                    </button>
+                                )}
+                            />
                         ))}
                     </div>
                 ) : (
