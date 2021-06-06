@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-function Card({ title, authors, link, description, image }) {
+function Card({ title, authors, link, description, image, Button }) {
     return (
         <div>
             <div className="card">
@@ -10,8 +10,9 @@ function Card({ title, authors, link, description, image }) {
                 <a href={link} target="_blank" rel="noreferrer">
                     View
                 </a>
-                <p>{description}</p>
                 <img alt={title} src={image} width="100"></img>
+                <p>{description}</p>
+                <Button />
             </div>
         </div>
     );

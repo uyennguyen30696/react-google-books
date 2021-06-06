@@ -2,7 +2,7 @@ import React from "react";
 import "./styling/saved.css";
 import Jumbotron from "../components/Jumbotron";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
-import Card from "../components/Card";
+// import Card from "../components/Card";
 
 function Saved() {
     return (
@@ -21,9 +21,7 @@ function Saved() {
                 </InputGroup>
             </div>
             <div>
-                <Card>
-                    <button>Delete</button>
-                </Card>
+                
             </div>
         </div>
     );

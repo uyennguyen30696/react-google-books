@@ -33,6 +33,21 @@ function Home() {
         search();
     }
 
+    const handleBookSave = (e) => {
+        e.preventDefault();
+        
+        API.saveBook({
+            title: "title",
+            authors: "authors",
+            link: "link",
+            image: "image",
+            description: "description"
+        })
+            .then(
+                console.log("clicked")
+            )
+    }
+
     return (
         <div>
             <Jumbotron />
@@ -66,8 +81,14 @@ function Home() {
                                     link={result.volumeInfo.infoLink}
                                     description={result.volumeInfo.description}
                                     image={result.volumeInfo.imageLinks.thumbnail}
-                                >
-                                </Card>
+                                    Button={() => (
+                                        <button
+                                            onClick={handleBookSave}
+                                        >
+                                          Save
+                                        </button>
+                                      )}
+                                />
                             )}
                             </div>
                         ))}
