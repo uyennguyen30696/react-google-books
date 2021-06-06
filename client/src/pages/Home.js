@@ -9,7 +9,7 @@ function Home() {
 
     const [books, setBooks] = useState({});
     const [q, setQ] = useState("");
-    // const [message, setMessage] = useState("Search for books to begin!");
+    const [message, setMessage] = useState("Search for books to begin!");
 
     const search = () => {
         API.getBooks(q)
@@ -19,7 +19,7 @@ function Home() {
             })
             .catch(
                 err => console.log(err),
-                // setMessage("No book matches your search!"),
+                setMessage("No book matches your search!"),
                 setBooks({})
             );
     }
@@ -32,6 +32,10 @@ function Home() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         search();
+        
+        if (books === "") {
+            setMessage("No book matches your search!")
+        };
     }
 
     const handleBookSave = (id) => {
@@ -92,7 +96,9 @@ function Home() {
                         ))}
                     </div>
                 ) : (
-                    <h3>Search for books to begin!</h3>
+                    <h3>
+                        {message}
+                    </h3>
                 )}
             </div>
         </div>
