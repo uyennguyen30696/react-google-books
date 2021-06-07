@@ -14,8 +14,8 @@ function Home() {
     const search = () => {
         API.getBooks(q)
             .then(res => {
-                console.log(res.data.items)
-                setBooks(res.data.items)
+                console.log(res.data)
+                setBooks(res.data)
             })
             .catch(
                 err => console.log(err),
@@ -32,7 +32,7 @@ function Home() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         search();
-        
+
         if (books === "") {
             setMessage("No book matches your search!")
         };
@@ -51,6 +51,9 @@ function Home() {
             image: book.volumeInfo.imageLinks.thumbnail,
             description: book.volumeInfo.description
         })
+            .then(
+                search()
+            )
             .catch(err => console.log(err))
     }
 
