@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styling/saved.css";
 import Jumbotron from "../components/Jumbotron";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
-// import Card from "../components/Card";
+import Card from "../components/Card";
+import API from "../utils/API";
 
 function Saved() {
+
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+        loadSavedBooks();
+    }, []);
+
+    const loadSavedBooks = () => {
+        API.getSavedBooks()
+            .then(res =>
+                setBooks(res.data)
+            )
+            .catch(err => console.log(err));
+    }
+
+    const handleBookDelete = (id) => {
+        API.deleteBook(id)
+            .then(res => 
+                loadSavedBooks(res.data)
+            )
+            .catch(err => console.log(err));
+    }
+
     return (
         <div>
             <Jumbotron />
@@ -21,7 +45,31 @@ function Saved() {
                 </InputGroup>
             </div>
             <div>
-                
+                {books.length ? (
+                    <div>
+                        {books.map(result => (
+                            <Card
+                                key={result._id}
+                                title={result.title}
+                                authors={result.authors.join(", ")}
+                                link={result.infoLink}
+                                image={result.image}
+                                description={result.description}
+                                Button={() => (
+                                    <button
+                                        onClick={() => handleBookDelete(result._id)}
+                                    >
+                                        Delete
+                                    </button>
+                                )}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <h3>
+                        You have no saved book yet!
+                    </h3>
+                )}
             </div>
         </div>
     );
