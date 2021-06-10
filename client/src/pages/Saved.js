@@ -7,7 +7,9 @@ import API from "../utils/API";
 
 function Saved() {
 
-    const [books, setBooks] = useState([]);
+    const [books, setBooks] = useState({});
+    const [title, setTitle] = useState("");
+    // const [message, setMessage] = useState("You have no saved book yet!");
 
     useEffect(() => {
         loadSavedBooks();
@@ -18,15 +20,40 @@ function Saved() {
             .then(res =>
                 setBooks(res.data)
             )
-            .catch(err => console.log(err));
+            .catch(
+                err => console.log(err),
+                // setMessage("There is no saved book matches your search!"),
+            );
     }
 
     const handleBookDelete = (id) => {
         API.deleteBook(id)
-            .then(res => 
+            .then(res =>
                 loadSavedBooks(res.data)
             )
             .catch(err => console.log(err));
+    }
+
+    const handleSearchInput = (e) => {
+        e.preventDefault();
+        setTitle(e.target.value);
+    }
+
+    const handleSearchTitle = (e) => {
+        e.preventDefault();
+
+        if (title) {
+            API.getOneSavedBook({
+                title
+            })
+                .then(res =>
+                    setBooks(res.data)
+                )
+                .catch(
+                    err => console.log(err),
+                    setTitle("")
+                )
+        }
     }
 
     return (
@@ -38,9 +65,15 @@ function Saved() {
                         placeholder="Search in my list..."
                         aria-label="Search in my list"
                         aria-describedby="basic-addon2"
+                        onChange={(e) => {handleSearchInput(e)}}
                     />
                     <InputGroup.Append>
-                        <Button variant="outline-secondary">Search</Button>
+                        <Button 
+                            variant="outline-secondary"
+                            onClick={handleSearchTitle}
+                        >
+                            Search
+                        </Button>
                     </InputGroup.Append>
                 </InputGroup>
             </div>
