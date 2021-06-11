@@ -9,7 +9,7 @@ function Saved() {
 
     const [books, setBooks] = useState({});
     const [title, setTitle] = useState("");
-    // const [message, setMessage] = useState("You have no saved book yet!");
+    const [message, setMessage] = useState("You have no saved book yet!");
 
     useEffect(() => {
         loadSavedBooks();
@@ -21,8 +21,7 @@ function Saved() {
                 setBooks(res.data)
             )
             .catch(
-                err => console.log(err),
-                // setMessage("There is no saved book matches your search!"),
+                err => console.log(err)
             );
     }
 
@@ -46,13 +45,14 @@ function Saved() {
             API.getOneSavedBook({
                 title
             })
-                .then(res =>
-                    setBooks(res.data)
-                )
-                .catch(
-                    err => console.log(err),
-                    setTitle("")
-                )
+                .then(res => {
+                    setBooks(res.data);
+
+                    if (title !== res.data.title) {
+                        setMessage("There is no book matches your search!");
+                    }
+                })
+                .catch(err => console.log(err))
         }
     }
 
@@ -65,10 +65,10 @@ function Saved() {
                         placeholder="Search in my list..."
                         aria-label="Search in my list"
                         aria-describedby="basic-addon2"
-                        onChange={(e) => {handleSearchInput(e)}}
+                        onChange={(e) => { handleSearchInput(e) }}
                     />
                     <InputGroup.Append>
-                        <Button 
+                        <Button
                             variant="outline-secondary"
                             onClick={handleSearchTitle}
                         >
@@ -100,7 +100,7 @@ function Saved() {
                     </div>
                 ) : (
                     <h3>
-                        You have no saved book yet!
+                        {message}
                     </h3>
                 )}
             </div>
