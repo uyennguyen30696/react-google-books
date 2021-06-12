@@ -4,7 +4,7 @@
 
 This is a React-based Google Books Search app that utilizes React lifecycle methods to query and display books based on user searches. The user can save favorite books in "My Books" list and search for a saved book in this list by title.
 
-Check out the Heroku deployed application [here]().
+Check out the Heroku deployed application [here](https://google-books-search-by-uyen.herokuapp.com/).
 
 ### Screenshots
 
