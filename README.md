@@ -8,7 +8,7 @@ Check out the Heroku deployed application [here](https://google-books-search-by-
 
 ### Demo
 
-![Demo](https://youtu.be/_2WKeytY3No)
+![Demo](./gif/demo.gif)
 
 ## Technologies
 
