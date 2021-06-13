@@ -8,6 +8,8 @@ Check out the Heroku deployed application [here](https://google-books-search-by-
 
 ### Screenshots
 
+[Demo](https://youtu.be/_2WKeytY3No)
+
 ## Technologies
 
 * MongoDB
