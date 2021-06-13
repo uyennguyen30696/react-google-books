@@ -6,9 +6,9 @@ This is a React-based Google Books Search app that utilizes React lifecycle meth
 
 Check out the Heroku deployed application [here](https://google-books-search-by-uyen.herokuapp.com/).
 
-### Screenshots
+### Demo
 
-[Demo](https://youtu.be/_2WKeytY3No)
+![Demo](https://youtu.be/_2WKeytY3No)
 
 ## Technologies
 
