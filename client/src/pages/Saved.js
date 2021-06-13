@@ -59,7 +59,7 @@ function Saved() {
     return (
         <div>
             <Jumbotron />
-            <div>
+            <div className="search">
                 <InputGroup className="mb-3">
                     <FormControl
                         placeholder="Search in my list..."
@@ -69,6 +69,7 @@ function Saved() {
                     />
                     <InputGroup.Append>
                         <Button
+                            className="search-btn"
                             variant="outline-secondary"
                             onClick={handleSearchTitle}
                         >
@@ -79,7 +80,7 @@ function Saved() {
             </div>
             <div>
                 {books.length ? (
-                    <div>
+                    <div className="book-container">
                         {books.map(result => (
                             <Card
                                 key={result._id}
@@ -90,6 +91,8 @@ function Saved() {
                                 description={result.description}
                                 Button={() => (
                                     <button
+                                        className="btn delete-btn"
+                                        type="button"
                                         onClick={() => handleBookDelete(result._id)}
                                     >
                                         Delete
@@ -99,9 +102,9 @@ function Saved() {
                         ))}
                     </div>
                 ) : (
-                    <h3>
+                    <h2 id="saved-message">
                         {message}
-                    </h3>
+                    </h2>
                 )}
             </div>
         </div>

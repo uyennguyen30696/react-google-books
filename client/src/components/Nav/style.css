@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+
+.navbar {
+    padding: 30px;
+    background-color: #333333 !important;
+    color: white !important;
+    font-family: 'Rye', 'cursive';
+}
+
+.nav-link {
+    color: #D6D6D6 !important;
+}

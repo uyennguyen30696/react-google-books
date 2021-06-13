@@ -60,7 +60,7 @@ function Home() {
     return (
         <div>
             <Jumbotron />
-            <div id="search">
+            <div className="search">
                 <InputGroup className="mb-3 here">
                     <FormControl
                         placeholder="Search books..."
@@ -70,16 +70,18 @@ function Home() {
                     />
                     <InputGroup.Append>
                         <Button
+                            className="search-btn"
                             variant="outline-secondary"
                             onClick={(e) => handleFormSubmit(e)}
-                        >Search
+                        >
+                            Search
                         </Button>
                     </InputGroup.Append>
                 </InputGroup>
             </div>
             <div>
                 {books.length ? (
-                    <div>
+                    <div className="book-container">
                         {books.map(result => (
                             <Card
                                 key={result.id}
@@ -90,6 +92,8 @@ function Home() {
                                 image={result.volumeInfo.imageLinks.thumbnail}
                                 Button={() => (
                                     <button
+                                        className="btn save-btn"
+                                        type="button"
                                         onClick={() => handleBookSave(result.id)}
                                     >
                                         Save
@@ -99,9 +103,9 @@ function Home() {
                         ))}
                     </div>
                 ) : (
-                    <h3>
+                    <h2 id="home-message">
                         {message}
-                    </h3>
+                    </h2>
                 )}
             </div>
         </div>

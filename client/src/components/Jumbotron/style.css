@@ -1,5 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+
 .jumbotron {
     border: 1px solid;
     text-align: center;
-    padding: 30px;
+    padding: 10%;
+    background-image: url("../../images/Image\ by\ Gerhard\ G.\ from\ Pixabay.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Rye', 'cursive';
+}
+
+h1 {
+    font-size: 4em;
+    text-shadow: 4px 4px black;
+}
+
+#h2 {
+    text-shadow: 4px 4px black;
 }

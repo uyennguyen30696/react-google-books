@@ -10,7 +10,9 @@ function Card({ title, authors, link, description, image, Button }) {
                 <a href={link} target="_blank" rel="noreferrer">
                     View
                 </a>
-                <img alt={title} src={image} width="100"></img>
+                <br></br>
+                <img alt={title} src={image} width="200" height="300"></img>
+                <br></br>
                 <p>{description}</p>
                 <Button />
             </div>
