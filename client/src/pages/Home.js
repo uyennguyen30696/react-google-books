@@ -38,6 +38,17 @@ function Home() {
         };
     }
 
+    const handleEnterKey = (e) => {
+
+        if (e.keyCode === 13) {
+            search();
+        };
+
+        if (books === "") {
+            setMessage("No book matches your search!")
+        };
+    }
+
     const handleBookSave = (id) => {
         const book = books.find(book => (
             book.id === id
@@ -67,6 +78,7 @@ function Home() {
                         aria-label="Search books"
                         aria-describedby="basic-addon2"
                         onChange={(e) => handleInputChange(e)}
+                        onKeyDown={(e) => handleEnterKey(e)}
                     />
                     <InputGroup.Append>
                         <Button

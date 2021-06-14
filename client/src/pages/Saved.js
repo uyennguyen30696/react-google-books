@@ -56,6 +56,12 @@ function Saved() {
         }
     }
 
+    const handleEnterKey = (e) => {
+        if (e.keyCode === 13) {
+            handleSearchTitle(e);
+        };
+    }
+
     return (
         <div>
             <Jumbotron />
@@ -66,6 +72,7 @@ function Saved() {
                         aria-label="Search in my list"
                         aria-describedby="basic-addon2"
                         onChange={(e) => { handleSearchInput(e) }}
+                        onKeyDown={(e) => { handleEnterKey(e) }}
                     />
                     <InputGroup.Append>
                         <Button
