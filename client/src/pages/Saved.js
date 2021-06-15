@@ -93,7 +93,7 @@ function Saved() {
                                 key={result._id}
                                 title={result.title}
                                 authors={result.authors.join(", ")}
-                                link={result.infoLink}
+                                link={result.link}
                                 image={result.image}
                                 description={result.description}
                                 Button={() => (
