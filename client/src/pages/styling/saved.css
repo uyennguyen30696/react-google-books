@@ -1,5 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 
+#dropdown-btn {
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+.sort-btn {
+    border-color: transparent;
+    padding: 0;
+    background-color: transparent;
+    color: black;
+}
+
+.sort-btn:hover {
+    border-color: transparent;
+    background-color: transparent;
+    color: black;
+}
+
 #saved-message {
     text-align: center;
     font-family: 'Courgette', 'cursive';

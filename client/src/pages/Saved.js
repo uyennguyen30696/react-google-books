@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styling/saved.css";
 import Jumbotron from "../components/Jumbotron";
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { InputGroup, FormControl, Button, Dropdown, ButtonGroup } from "react-bootstrap";
 import Card from "../components/Card";
 import API from "../utils/API";
 
@@ -62,6 +62,46 @@ function Saved() {
         };
     }
 
+    const sortByTitle = (e) => {
+        e.preventDefault();
+
+        API.getSavedBooks()
+            .then(res =>
+                setBooks(res.data.sort((a, b) => {
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    return 0;
+                }))
+            )
+            .catch(
+                err => console.log(err)
+            );
+    }
+
+    const sortByAuthor = (e) => {
+        e.preventDefault();
+
+        API.getSavedBooks()
+            .then(res =>
+                setBooks(res.data.sort((a, b) => {
+                    if (a.authors < b.authors) {
+                        return -1;
+                    }
+                    if (a.authors > b.authors) {
+                        return 1;
+                    }
+                    return 0;
+                }))
+            )
+            .catch(
+                err => console.log(err)
+            );
+    }
+
     return (
         <div>
             <Jumbotron />
@@ -87,26 +127,55 @@ function Saved() {
             </div>
             <div>
                 {books.length ? (
-                    <div className="book-container">
-                        {books.map(result => (
-                            <Card
-                                key={result._id}
-                                title={result.title}
-                                authors={result.authors.join(", ")}
-                                link={result.link}
-                                image={result.image}
-                                description={result.description}
-                                Button={() => (
-                                    <button
-                                        className="btn delete-btn"
-                                        type="button"
-                                        onClick={() => handleBookDelete(result._id)}
-                                    >
-                                        Delete
-                                    </button>
-                                )}
-                            />
-                        ))}
+                    <div>
+                        <div id="dropdown-btn">
+                            <Dropdown as={ButtonGroup}>
+                                <Button variant="success">Sort By</Button>
+
+                                <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item>
+                                        <Button
+                                            className="sort-btn"
+                                            onClick={(e) => sortByTitle(e)}
+                                        >
+                                            Title
+                                        </Button>
+                                    </Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item>
+                                        <Button
+                                            className="sort-btn"
+                                            onClick={(e) => sortByAuthor(e)}
+                                        >
+                                            Author
+                                        </Button>
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                        <div className="book-container">
+                            {books.map(result => (
+                                <Card
+                                    key={result._id}
+                                    title={result.title}
+                                    authors={result.authors.join(", ")}
+                                    link={result.link}
+                                    image={result.image}
+                                    description={result.description}
+                                    Button={() => (
+                                        <button
+                                            className="btn delete-btn"
+                                            type="button"
+                                            onClick={() => handleBookDelete(result._id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    )}
+                                />
+                            ))}
+                        </div>
                     </div>
                 ) : (
                     <h2 id="saved-message">
